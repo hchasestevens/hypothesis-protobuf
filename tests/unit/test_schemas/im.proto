@@ -1,0 +1,24 @@
+syntax = "proto3";
+package im;
+
+enum Client {
+  CLIENT_UNKNOWN = 0;
+  CLIENT_NATIVE_APP = 1;
+  CLIENT_WEB_APP = 2;
+  CLIENT_API = 3;
+}
+
+message User {
+  uint64 id = 1;
+  string screen_name = 2;
+}
+
+message InstantMessage {
+  uint64 timestamp = 1;
+  Client client = 2;
+  fixed32 sender_ip = 3;
+  User sender = 4;
+  User recipient = 5;
+  string message = 6;
+  repeated bytes image_attachments = 7;
+}

@@ -1,0 +1,2 @@
+hypothesis>=3.4.2
+protobuf>=3.3.0,<4.0.0
