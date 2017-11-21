@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='im.proto',
   package='im',
   syntax='proto3',
-  serialized_pb=_b('\n\x08im.proto\x12\x02im\"\'\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0bscreen_name\x18\x02 \x01(\t\"\xb5\x01\n\x0eInstantMessage\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x1a\n\x06\x63lient\x18\x02 \x01(\x0e\x32\n.im.Client\x12\x11\n\tsender_ip\x18\x03 \x01(\x07\x12\x18\n\x06sender\x18\x04 \x01(\x0b\x32\x08.im.User\x12\x1b\n\trecipient\x18\x05 \x01(\x0b\x32\x08.im.User\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x19\n\x11image_attachments\x18\x07 \x03(\x0c*W\n\x06\x43lient\x12\x12\n\x0e\x43LIENT_UNKNOWN\x10\x00\x12\x15\n\x11\x43LIENT_NATIVE_APP\x10\x01\x12\x12\n\x0e\x43LIENT_WEB_APP\x10\x02\x12\x0e\n\nCLIENT_API\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x08im.proto\x12\x02im\"\'\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0bscreen_name\x18\x02 \x01(\t\"\x1b\n\x08MetaData\x12\x0f\n\x07latency\x18\x01 \x01(\x02\"\xd5\x01\n\x0eInstantMessage\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x1a\n\x06\x63lient\x18\x02 \x01(\x0e\x32\n.im.Client\x12\x11\n\tsender_ip\x18\x03 \x01(\x07\x12\x18\n\x06sender\x18\x04 \x01(\x0b\x32\x08.im.User\x12\x1b\n\trecipient\x18\x05 \x01(\x0b\x32\x08.im.User\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x19\n\x11image_attachments\x18\x07 \x03(\x0c\x12\x1e\n\x08metadata\x18\x08 \x01(\x0b\x32\x0c.im.MetaData*W\n\x06\x43lient\x12\x12\n\x0e\x43LIENT_UNKNOWN\x10\x00\x12\x15\n\x11\x43LIENT_NATIVE_APP\x10\x01\x12\x12\n\x0e\x43LIENT_WEB_APP\x10\x02\x12\x0e\n\nCLIENT_API\x10\x03\x62\x06proto3')
 )
 
 _CLIENT = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _CLIENT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=241,
-  serialized_end=328,
+  serialized_start=302,
+  serialized_end=389,
 )
 _sym_db.RegisterEnumDescriptor(_CLIENT)
 
@@ -96,6 +96,37 @@ _USER = _descriptor.Descriptor(
   ],
   serialized_start=16,
   serialized_end=55,
+)
+
+
+_METADATA = _descriptor.Descriptor(
+  name='MetaData',
+  full_name='im.MetaData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='latency', full_name='im.MetaData.latency', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=57,
+  serialized_end=84,
 )
 
 
@@ -155,6 +186,13 @@ _INSTANTMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='im.InstantMessage.metadata', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -167,14 +205,16 @@ _INSTANTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=58,
-  serialized_end=239,
+  serialized_start=87,
+  serialized_end=300,
 )
 
 _INSTANTMESSAGE.fields_by_name['client'].enum_type = _CLIENT
 _INSTANTMESSAGE.fields_by_name['sender'].message_type = _USER
 _INSTANTMESSAGE.fields_by_name['recipient'].message_type = _USER
+_INSTANTMESSAGE.fields_by_name['metadata'].message_type = _METADATA
 DESCRIPTOR.message_types_by_name['User'] = _USER
+DESCRIPTOR.message_types_by_name['MetaData'] = _METADATA
 DESCRIPTOR.message_types_by_name['InstantMessage'] = _INSTANTMESSAGE
 DESCRIPTOR.enum_types_by_name['Client'] = _CLIENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -185,6 +225,13 @@ User = _reflection.GeneratedProtocolMessageType('User', (_message.Message,), dic
   # @@protoc_insertion_point(class_scope:im.User)
   ))
 _sym_db.RegisterMessage(User)
+
+MetaData = _reflection.GeneratedProtocolMessageType('MetaData', (_message.Message,), dict(
+  DESCRIPTOR = _METADATA,
+  __module__ = 'im_pb2'
+  # @@protoc_insertion_point(class_scope:im.MetaData)
+  ))
+_sym_db.RegisterMessage(MetaData)
 
 InstantMessage = _reflection.GeneratedProtocolMessageType('InstantMessage', (_message.Message,), dict(
   DESCRIPTOR = _INSTANTMESSAGE,
