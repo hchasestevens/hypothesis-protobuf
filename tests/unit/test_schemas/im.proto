@@ -13,6 +13,10 @@ message User {
   string screen_name = 2;
 }
 
+message MetaData {
+  float latency = 1;
+}
+
 message InstantMessage {
   uint64 timestamp = 1;
   Client client = 2;
@@ -21,4 +25,5 @@ message InstantMessage {
   User recipient = 5;
   string message = 6;
   repeated bytes image_attachments = 7;
+  MetaData metadata = 8;
 }
