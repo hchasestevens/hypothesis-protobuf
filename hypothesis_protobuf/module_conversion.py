@@ -144,9 +144,6 @@ def buildable(message_obj):
 
 def message_to_strategy(message_obj, env, overrides=None):
     """Generate strategy from message."""
-    # TODO: nested enums are not supported
-    # TODO: nested messages are not supported
-
     return st.builds(
         buildable(message_obj),
         **{
@@ -155,33 +152,45 @@ def message_to_strategy(message_obj, env, overrides=None):
         }
     )
 
+def handle_message_type(all_mess_objs, all_enum_objs, cont_obj, cont_type):
+
+    for cur_enum in cont_type.enum_types:
+        all_enum_objs.append(getattr(cont_obj, cur_enum.name))
+
+    all_mess_objs.append(cont_obj)
+    all_nested = cont_type.nested_types
+    for cur_nested in all_nested:		
+        handle_message_type(all_mess_objs, all_enum_objs, getattr(cont_obj, cur_nested.name), cur_nested)
 
 def load_module_into_env(module_, env, overrides=None):
     """Populate env with all messages and enums from the module."""
-    for enum in module_.DESCRIPTOR.enum_types_by_name.values():
-        enum_obj = getattr(module_, enum.name)
-        env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
-
     # Some message types are dependant on other messages being loaded
     # Unfortunately, how to determine load order is not clear.
     # We'll loop through all the messages, skipping over errors until we've either:
     # A) loaded all the messages
     # B) exhausted all the possible orderings
-    message_types = module_.DESCRIPTOR.message_types_by_name.values()
-    total_messages = len(message_types)
+    message_objects = []
+    enum_objects = []
+    for cur_type in module_.DESCRIPTOR.message_types_by_name.values():
+        handle_message_type(message_objects, enum_objects, getattr(module_, cur_type.name), cur_type)
+        
+    for enum_obj in enum_objects:
+        env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
+    
+    total_messages = len(message_objects)
     loaded = set()
     for __ in range(total_messages):
-        for message in message_types:
-            if message in loaded:
+        for message_obj in message_objects:
+            if message_obj in loaded:
                 continue
             try:
-                message_obj = getattr(module_, message.name)
+       
                 env[message_obj] = message_to_strategy(message_obj, env, overrides=overrides)
-                loaded.add(message)
+                loaded.add(message_obj)
             except LookupError:
                 continue
 
-        if all(message in loaded for message in message_types):
+        if all(message_obj in loaded for message_obj in message_objects):
             break
 
 

@@ -123,8 +123,5 @@ strategy_overrides = {
 }
 ```
 
-### Known limitations
-`hypothesis-protobuf` does not currently support message or enum definitions nested within other message definitions.
-
 ## License
 `hypothesis-protobuf` is available under the MIT license.
