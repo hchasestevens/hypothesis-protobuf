@@ -23,6 +23,10 @@ def test_instant_message_example():
     assert isinstance(instant_message_example.recipient.screen_name, basestring)
     assert isinstance(instant_message_example.message, basestring)
     assert isinstance(instant_message_example.metadata.latency, float)
+    assert isinstance(instant_message_example.metadata.inner.a, float)
+    assert isinstance(instant_message_example.metadata.inner.layer.client.name, basestring)
+    assert isinstance(instant_message_example.metadata.inner.layer.status, Number)
+    assert isinstance(instant_message_example.client, Number)
 
 
 def test_overrides_respected():

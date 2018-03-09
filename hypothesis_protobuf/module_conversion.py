@@ -170,11 +170,14 @@ def load_module_into_env(module_, env, overrides=None):
     # A) loaded all the messages
     # B) exhausted all the possible orderings
     message_objects = []
-    enum_objects = []
+    nested_enum_objects = []
     for cur_type in module_.DESCRIPTOR.message_types_by_name.values():
-        handle_message_type(message_objects, enum_objects, getattr(module_, cur_type.name), cur_type)
+        handle_message_type(message_objects, nested_enum_objects, getattr(module_, cur_type.name), cur_type)
         
-    for enum_obj in enum_objects:
+    for enum_obj in nested_enum_objects:
+        env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
+    for enum in module_.DESCRIPTOR.enum_types_by_name.values():
+        enum_obj = getattr(module_, enum.name)
         env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
     
     total_messages = len(message_objects)

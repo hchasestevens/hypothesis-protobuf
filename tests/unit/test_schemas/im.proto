@@ -15,6 +15,31 @@ message User {
 
 message MetaData {
   float latency = 1;
+  message Inner
+  {
+       float a = 1;
+       float b = 2;
+       
+       enum Status {
+           DEAD = 0;
+           ALIVE = 1;
+           UNKNOWN = 2;
+       }
+       message Client
+       {
+            string name = 1;
+            uint64 id = 2;
+       }
+       
+       message LimboDreamLayer
+       {
+            Client client = 1;
+            Status status = 2;
+       }
+       LimboDreamLayer layer = 3;
+       
+  }
+  Inner inner = 2;
 }
 
 message InstantMessage {
