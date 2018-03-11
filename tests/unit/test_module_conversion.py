@@ -37,3 +37,9 @@ def test_overrides_respected():
     instant_message_strategy = protobuf_strategies[im_pb2.InstantMessage]
     instant_message_example = instant_message_strategy.example()
     assert instant_message_example.message == 'test message'
+    
+def test_nested_strategies_produce_data():
+    """Ensure nested messages are accessible within strategy dict."""
+    protobuf_strategies = modules_to_strategies(im_pb2)
+    assert protobuf_strategies[im_pb2.MetaData.Inner].example()
+    assert protobuf_strategies[im_pb2.MetaData.Inner.LimboDreamLayer].example()
