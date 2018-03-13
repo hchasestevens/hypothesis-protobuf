@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='im.proto',
   package='im',
   syntax='proto3',
-  serialized_pb=_b('\n\x08im.proto\x12\x02im\"\'\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0bscreen_name\x18\x02 \x01(\t\"\x1b\n\x08MetaData\x12\x0f\n\x07latency\x18\x01 \x01(\x02\"\xd5\x01\n\x0eInstantMessage\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x1a\n\x06\x63lient\x18\x02 \x01(\x0e\x32\n.im.Client\x12\x11\n\tsender_ip\x18\x03 \x01(\x07\x12\x18\n\x06sender\x18\x04 \x01(\x0b\x32\x08.im.User\x12\x1b\n\trecipient\x18\x05 \x01(\x0b\x32\x08.im.User\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x19\n\x11image_attachments\x18\x07 \x03(\x0c\x12\x1e\n\x08metadata\x18\x08 \x01(\x0b\x32\x0c.im.MetaData*W\n\x06\x43lient\x12\x12\n\x0e\x43LIENT_UNKNOWN\x10\x00\x12\x15\n\x11\x43LIENT_NATIVE_APP\x10\x01\x12\x12\n\x0e\x43LIENT_WEB_APP\x10\x02\x12\x0e\n\nCLIENT_API\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x08im.proto\x12\x02im\"\'\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0bscreen_name\x18\x02 \x01(\t\"\xca\x02\n\x08MetaData\x12\x0f\n\x07latency\x18\x01 \x01(\x02\x12!\n\x05inner\x18\x02 \x01(\x0b\x32\x12.im.MetaData.Inner\x1a\x89\x02\n\x05Inner\x12\t\n\x01\x61\x18\x01 \x01(\x02\x12\t\n\x01\x62\x18\x02 \x01(\x02\x12\x31\n\x05layer\x18\x03 \x01(\x0b\x32\".im.MetaData.Inner.LimboDreamLayer\x1a\"\n\x06\x43lient\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x04\x1ag\n\x0fLimboDreamLayer\x12)\n\x06\x63lient\x18\x01 \x01(\x0b\x32\x19.im.MetaData.Inner.Client\x12)\n\x06status\x18\x02 \x01(\x0e\x32\x19.im.MetaData.Inner.Status\"*\n\x06Status\x12\x08\n\x04\x44\x45\x41\x44\x10\x00\x12\t\n\x05\x41LIVE\x10\x01\x12\x0b\n\x07UNKNOWN\x10\x02\"\xd5\x01\n\x0eInstantMessage\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x1a\n\x06\x63lient\x18\x02 \x01(\x0e\x32\n.im.Client\x12\x11\n\tsender_ip\x18\x03 \x01(\x07\x12\x18\n\x06sender\x18\x04 \x01(\x0b\x32\x08.im.User\x12\x1b\n\trecipient\x18\x05 \x01(\x0b\x32\x08.im.User\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x19\n\x11image_attachments\x18\x07 \x03(\x0c\x12\x1e\n\x08metadata\x18\x08 \x01(\x0b\x32\x0c.im.MetaData*W\n\x06\x43lient\x12\x12\n\x0e\x43LIENT_UNKNOWN\x10\x00\x12\x15\n\x11\x43LIENT_NATIVE_APP\x10\x01\x12\x12\n\x0e\x43LIENT_WEB_APP\x10\x02\x12\x0e\n\nCLIENT_API\x10\x03\x62\x06proto3')
 )
 
 _CLIENT = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _CLIENT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=302,
-  serialized_end=389,
+  serialized_start=606,
+  serialized_end=693,
 )
 _sym_db.RegisterEnumDescriptor(_CLIENT)
 
@@ -59,6 +59,32 @@ CLIENT_NATIVE_APP = 1
 CLIENT_WEB_APP = 2
 CLIENT_API = 3
 
+
+_METADATA_INNER_STATUS = _descriptor.EnumDescriptor(
+  name='Status',
+  full_name='im.MetaData.Inner.Status',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='DEAD', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ALIVE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=346,
+  serialized_end=388,
+)
+_sym_db.RegisterEnumDescriptor(_METADATA_INNER_STATUS)
 
 
 _USER = _descriptor.Descriptor(
@@ -74,14 +100,14 @@ _USER = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='screen_name', full_name='im.User.screen_name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -99,6 +125,125 @@ _USER = _descriptor.Descriptor(
 )
 
 
+_METADATA_INNER_CLIENT = _descriptor.Descriptor(
+  name='Client',
+  full_name='im.MetaData.Inner.Client',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='im.MetaData.Inner.Client.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='im.MetaData.Inner.Client.id', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=205,
+  serialized_end=239,
+)
+
+_METADATA_INNER_LIMBODREAMLAYER = _descriptor.Descriptor(
+  name='LimboDreamLayer',
+  full_name='im.MetaData.Inner.LimboDreamLayer',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='client', full_name='im.MetaData.Inner.LimboDreamLayer.client', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='im.MetaData.Inner.LimboDreamLayer.status', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=241,
+  serialized_end=344,
+)
+
+_METADATA_INNER = _descriptor.Descriptor(
+  name='Inner',
+  full_name='im.MetaData.Inner',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='a', full_name='im.MetaData.Inner.a', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='b', full_name='im.MetaData.Inner.b', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='layer', full_name='im.MetaData.Inner.layer', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_METADATA_INNER_CLIENT, _METADATA_INNER_LIMBODREAMLAYER, ],
+  enum_types=[
+    _METADATA_INNER_STATUS,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=123,
+  serialized_end=388,
+)
+
 _METADATA = _descriptor.Descriptor(
   name='MetaData',
   full_name='im.MetaData',
@@ -112,11 +257,18 @@ _METADATA = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='inner', full_name='im.MetaData.inner', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_METADATA_INNER, ],
   enum_types=[
   ],
   options=None,
@@ -125,8 +277,8 @@ _METADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=57,
-  serialized_end=84,
+  serialized_start=58,
+  serialized_end=388,
 )
 
 
@@ -143,56 +295,56 @@ _INSTANTMESSAGE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='client', full_name='im.InstantMessage.client', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='sender_ip', full_name='im.InstantMessage.sender_ip', index=2,
       number=3, type=7, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='sender', full_name='im.InstantMessage.sender', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='recipient', full_name='im.InstantMessage.recipient', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='message', full_name='im.InstantMessage.message', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='image_attachments', full_name='im.InstantMessage.image_attachments', index=6,
       number=7, type=12, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='metadata', full_name='im.InstantMessage.metadata', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -205,10 +357,18 @@ _INSTANTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=300,
+  serialized_start=391,
+  serialized_end=604,
 )
 
+_METADATA_INNER_CLIENT.containing_type = _METADATA_INNER
+_METADATA_INNER_LIMBODREAMLAYER.fields_by_name['client'].message_type = _METADATA_INNER_CLIENT
+_METADATA_INNER_LIMBODREAMLAYER.fields_by_name['status'].enum_type = _METADATA_INNER_STATUS
+_METADATA_INNER_LIMBODREAMLAYER.containing_type = _METADATA_INNER
+_METADATA_INNER.fields_by_name['layer'].message_type = _METADATA_INNER_LIMBODREAMLAYER
+_METADATA_INNER.containing_type = _METADATA
+_METADATA_INNER_STATUS.containing_type = _METADATA_INNER
+_METADATA.fields_by_name['inner'].message_type = _METADATA_INNER
 _INSTANTMESSAGE.fields_by_name['client'].enum_type = _CLIENT
 _INSTANTMESSAGE.fields_by_name['sender'].message_type = _USER
 _INSTANTMESSAGE.fields_by_name['recipient'].message_type = _USER
@@ -227,11 +387,35 @@ User = _reflection.GeneratedProtocolMessageType('User', (_message.Message,), dic
 _sym_db.RegisterMessage(User)
 
 MetaData = _reflection.GeneratedProtocolMessageType('MetaData', (_message.Message,), dict(
+
+  Inner = _reflection.GeneratedProtocolMessageType('Inner', (_message.Message,), dict(
+
+    Client = _reflection.GeneratedProtocolMessageType('Client', (_message.Message,), dict(
+      DESCRIPTOR = _METADATA_INNER_CLIENT,
+      __module__ = 'im_pb2'
+      # @@protoc_insertion_point(class_scope:im.MetaData.Inner.Client)
+      ))
+    ,
+
+    LimboDreamLayer = _reflection.GeneratedProtocolMessageType('LimboDreamLayer', (_message.Message,), dict(
+      DESCRIPTOR = _METADATA_INNER_LIMBODREAMLAYER,
+      __module__ = 'im_pb2'
+      # @@protoc_insertion_point(class_scope:im.MetaData.Inner.LimboDreamLayer)
+      ))
+    ,
+    DESCRIPTOR = _METADATA_INNER,
+    __module__ = 'im_pb2'
+    # @@protoc_insertion_point(class_scope:im.MetaData.Inner)
+    ))
+  ,
   DESCRIPTOR = _METADATA,
   __module__ = 'im_pb2'
   # @@protoc_insertion_point(class_scope:im.MetaData)
   ))
 _sym_db.RegisterMessage(MetaData)
+_sym_db.RegisterMessage(MetaData.Inner)
+_sym_db.RegisterMessage(MetaData.Inner.Client)
+_sym_db.RegisterMessage(MetaData.Inner.LimboDreamLayer)
 
 InstantMessage = _reflection.GeneratedProtocolMessageType('InstantMessage', (_message.Message,), dict(
   DESCRIPTOR = _INSTANTMESSAGE,

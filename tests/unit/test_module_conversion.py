@@ -23,6 +23,10 @@ def test_instant_message_example():
     assert isinstance(instant_message_example.recipient.screen_name, basestring)
     assert isinstance(instant_message_example.message, basestring)
     assert isinstance(instant_message_example.metadata.latency, float)
+    assert isinstance(instant_message_example.metadata.inner.a, float)
+    assert isinstance(instant_message_example.metadata.inner.layer.client.name, basestring)
+    assert isinstance(instant_message_example.metadata.inner.layer.status, Number)
+    assert isinstance(instant_message_example.client, Number)
 
 
 def test_overrides_respected():
@@ -33,3 +37,9 @@ def test_overrides_respected():
     instant_message_strategy = protobuf_strategies[im_pb2.InstantMessage]
     instant_message_example = instant_message_strategy.example()
     assert instant_message_example.message == 'test message'
+    
+def test_nested_strategies_produce_data():
+    """Ensure nested messages are accessible within strategy dict."""
+    protobuf_strategies = modules_to_strategies(im_pb2)
+    assert protobuf_strategies[im_pb2.MetaData.Inner].example()
+    assert protobuf_strategies[im_pb2.MetaData.Inner.LimboDreamLayer].example()

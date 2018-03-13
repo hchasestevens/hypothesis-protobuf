@@ -4,7 +4,7 @@ setup(
     name='hypothesis-pb',
     packages=['hypothesis_protobuf'],
     platforms='any',
-    version='1.0.1',
+    version='1.1.0',
     description='Hypothesis extension to allow generating protobuf messages matching a schema.',
     author='H. Chase Stevens / Curata Inc.',
     author_email='chase@curata.com',
