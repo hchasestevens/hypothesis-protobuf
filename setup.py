@@ -6,8 +6,8 @@ setup(
     platforms='any',
     version='1.1.0',
     description='Hypothesis extension to allow generating protobuf messages matching a schema.',
-    author='H. Chase Stevens / Curata Inc.',
-    author_email='chase@curata.com',
+    author='Curata Inc.',
+    author_email='eng@curata.com',
     url='https://github.com/CurataEng/hypothesis-protobuf',
     license='MIT',
     install_requires=[
