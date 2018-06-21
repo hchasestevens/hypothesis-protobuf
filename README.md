@@ -1,4 +1,8 @@
 # hypothesis-protobuf
+[![Build Status](https://travis-ci.org/hchasestevens/hypothesis-protobuf.svg?branch=master)](https://travis-ci.org/hchasestevens/hypothesis-protobuf)
+[![PyPI version](https://badge.fury.io/py/hypothesis-pb.svg)](https://pypi.org/project/hypothesis-pb)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hypothesis-pb.svg) 
+
 [Hypothesis](http://hypothesis.works/) extension to allow generating [protobuf](https://developers.google.com/protocol-buffers/) messages matching a schema.
 
 ## Installation
