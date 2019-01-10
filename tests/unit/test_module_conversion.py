@@ -8,6 +8,7 @@ from past.builtins import basestring
 from hypothesis import strategies as st
 
 from .test_schemas import im_pb2
+from .test_schemas import loop_pb2
 
 from hypothesis_protobuf.module_conversion import modules_to_strategies
 from hypothesis_protobuf.utils import full_field_name
@@ -43,3 +44,11 @@ def test_nested_strategies_produce_data():
     protobuf_strategies = modules_to_strategies(im_pb2)
     assert protobuf_strategies[im_pb2.MetaData.Inner].example()
     assert protobuf_strategies[im_pb2.MetaData.Inner.LimboDreamLayer].example()
+
+def test_recursive_strategies_produce_data():
+    """
+    Ensure that we are able to construct strategies for recursive
+    messages
+    """
+    protobuf_strategies = modules_to_strategies(loop_pb2)
+    assert protobuf_strategies[loop_pb2.Loop].example()

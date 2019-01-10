@@ -144,12 +144,14 @@ def buildable(message_obj):
 
 def message_to_strategy(message_obj, env, overrides=None):
     """Generate strategy from message."""
-    return st.builds(
+    # Protobuf messages may have recursive dependencies.
+    # We can manage these by lazily constructing strategies using st.deferred
+    return st.deferred(lambda: st.builds(
         buildable(message_obj),
         **{
             field_name: field_to_strategy(field, env, overrides=overrides)
             for field_name, field in message_obj.DESCRIPTOR.fields_by_name.items()
-        }
+        })
     )
 
 def handle_message_type(all_mess_objs, all_enum_objs, cont_obj, cont_type):
@@ -164,11 +166,6 @@ def handle_message_type(all_mess_objs, all_enum_objs, cont_obj, cont_type):
 
 def load_module_into_env(module_, env, overrides=None):
     """Populate env with all messages and enums from the module."""
-    # Some message types are dependant on other messages being loaded
-    # Unfortunately, how to determine load order is not clear.
-    # We'll loop through all the messages, skipping over errors until we've either:
-    # A) loaded all the messages
-    # B) exhausted all the possible orderings
     message_objects = []
     nested_enum_objects = []
     for cur_type in module_.DESCRIPTOR.message_types_by_name.values():
@@ -181,20 +178,8 @@ def load_module_into_env(module_, env, overrides=None):
         env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
     
     total_messages = len(message_objects)
-    loaded = set()
-    for __ in range(total_messages):
-        for message_obj in message_objects:
-            if message_obj in loaded:
-                continue
-            try:
-       
-                env[message_obj] = message_to_strategy(message_obj, env, overrides=overrides)
-                loaded.add(message_obj)
-            except LookupError:
-                continue
-
-        if all(message_obj in loaded for message_obj in message_objects):
-            break
+    for message_obj in message_objects:
+        env[message_obj] = message_to_strategy(message_obj, env, overrides=overrides)
 
 
 def modules_to_strategies(*modules, **overrides):
