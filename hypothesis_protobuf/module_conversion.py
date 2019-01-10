@@ -177,7 +177,6 @@ def load_module_into_env(module_, env, overrides=None):
         enum_obj = getattr(module_, enum.name)
         env[enum_obj] = enum_to_strategy(enum_obj, overrides=overrides)
     
-    total_messages = len(message_objects)
     for message_obj in message_objects:
         env[message_obj] = message_to_strategy(message_obj, env, overrides=overrides)
 
