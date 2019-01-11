@@ -26,8 +26,8 @@ SCALAR_MAPPINGS = {
     FieldDescriptor.TYPE_SINT64: st.integers(**RANGE64),
     FieldDescriptor.TYPE_FIXED32: st.integers(**URANGE32),
     FieldDescriptor.TYPE_FIXED64: st.integers(**URANGE64),
-    FieldDescriptor.TYPE_SFIXED32: st.integers(**URANGE32),
-    FieldDescriptor.TYPE_SFIXED64: st.integers(**URANGE64),
+    FieldDescriptor.TYPE_SFIXED32: st.integers(**RANGE32),
+    FieldDescriptor.TYPE_SFIXED64: st.integers(**RANGE64),
     FieldDescriptor.TYPE_BOOL: st.booleans(),
     FieldDescriptor.TYPE_STRING: st.text(),
     FieldDescriptor.TYPE_BYTES: st.binary()

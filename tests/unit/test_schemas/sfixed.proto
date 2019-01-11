@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Sfixed {
+  sfixed32 sfixed32 = 1;
+  sfixed64 sfixed64 = 2;
+}
