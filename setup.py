@@ -6,6 +6,7 @@ setup(
     platforms='any',
     version='1.2.0',
     description='Hypothesis extension to allow generating protobuf messages matching a schema.',
+    long_description=open('README.md').read(),
     author='H. Chase Stevens',
     author_email='chase@chasestevens.com',
     url='https://github.com/hchasestevens/hypothesis-protobuf',
