@@ -17,6 +17,7 @@ setup(
     tests_require=['pytest>=3.1.2', 'future>=0.16.0'],
     extras_require={'dev': ['pytest>=3.1.2', 'future>=0.16.0']},
     classifiers=[
+        'Framework :: Hypothesis',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
